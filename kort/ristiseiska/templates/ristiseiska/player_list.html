@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Player List</h1>
+<ul>
+  {% for player in object_list %}
+  <li>{{ player }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'player_create' %}">Create New Player</a>
+{% endblock %}

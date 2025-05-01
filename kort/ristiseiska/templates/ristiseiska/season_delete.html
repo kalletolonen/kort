@@ -1,0 +1,1 @@
+{% extends 'base.html' %}\n{% block content %}\n<h1>Season Delete</h1>\n{% if delete == 'list' %}\n<ul>\n{% for obj in object_list %}\n<li>{{ obj }}</li>\n{% endfor %}\n</ul>\n{% else %}\n<form method='post'>\n{% csrf_token %}\n{{ form.as_p }}\n<button type='submit'>Submit</button>\n</form>\n{% endif %}\n{% endblock %}

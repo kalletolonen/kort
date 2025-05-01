@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Season Detail</h1>
+<p>Season Name: {{ season }}</p>
+<p>Start Date: {{ season.start_date }}</p>
+{% if season.end_date %}
+<p>End Date: {{ season.end_date }}</p>
+{% else %}
+<p>End Date: Not available</p>
+{% endif %}
+
+<h2>Leaderboard for {{ season.name }}</h2>
+{% if leaderboard.players %}
+<table border="1">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Total Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for player in leaderboard.players %}
+    <tr>
+      <td>{{ player.rank }}</td>
+      <td>{{ player.player_name }}</td>
+      <td>{{ player.wins }}</td>
+      <td>{{ player.losses }}</td>
+      <td>{{ player.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No games recorded for this season.</p>
+{% endif %}
+
+<a href="{% url 'season_list' %}">Back to Season List</a>
+{% endblock %}

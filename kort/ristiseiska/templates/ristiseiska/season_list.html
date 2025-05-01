@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Season Leaderboard</h1>
+{% with latest_season=object_list.0 %} {% if latest_season %}
+<p>Current Season: {{ latest_season.name }}</p>
+<p>Start date: {{ latest_season.start_date }}</p>
+{% if latest_season.end_date %}
+<p>End date: {{ latest_season.end_date }}</p>
+{% else %}
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">End Current Season</button>
+</form>
+{% endif %}
+
+<h2>Leaderboard for {{ latest_season.name }}</h2>
+{% if leaderboard.players %}
+<table border="1">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Total Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for player in leaderboard.players %}
+    <tr>
+      <td>{{ player.rank }}</td>
+      <td>{{ player.player_name }}</td>
+      <td>{{ player.wins }}</td>
+      <td>{{ player.losses }}</td>
+      <td>{{ player.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No games recorded for this season.</p>
+{% endif %} {% else %}
+<p>No seasons available.</p>
+{% endif %} {% endwith %}
+
+<h2>All Seasons</h2>
+<ul>
+  {% for season in object_list %}
+  <li>
+    <a href="{% url 'season_detail' season.id %}"
+      >{{ season.name }} ({{ season.start_date }})</a
+    >
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

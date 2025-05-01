@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Game List</h1>
+{% if current_season %}
+<p>Current Season: {{ current_season.name }}</p>
+{% else %}
+<p>No seasons found.</p>
+{% endif %}
+<table border="1">
+  <thead>
+    <tr>
+      <th>Game</th>
+      <th>Date Played</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for game in games %}
+    <tr>
+      <td>{{ game }}</td>
+      <td>{{ game.datetime|date:"d.m.Y H:i" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
